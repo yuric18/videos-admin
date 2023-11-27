@@ -58,6 +58,11 @@ export class Category extends Entity {
     this.is_active = true
   }
 
+  update({ name, description }: { name: string, description: string }): void {
+    this.changeName(name)
+    this.changeDescription(description)
+  }
+
   deactivate() {
     this.is_active = false
   }

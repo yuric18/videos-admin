@@ -117,6 +117,16 @@ describe('Category Unit Test', () => {
     expect(category.is_active).toBe(false)
   })
 
+  test('should update category name and description', () => {
+    const category = Category.create({
+      name: 'Movie'
+    })
+    expect(category.description).toBe(null)
+    category.update({ name: 'M0V13', description: 'any_description' })
+    expect(category.name).toBe('M0V13')
+    expect(category.description).toBe('any_description')
+  })
+
   describe('toJSON', () => {
     test('shoud export entity values as JSON object', () => {
       const category = Category.create({
