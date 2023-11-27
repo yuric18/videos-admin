@@ -7,33 +7,7 @@ type Expected = {
   data: any
 } | (() => any)
 
-expect.extend({
-  containsErrorMessage(expected: Expected, received: FieldErrors) {
-    if (typeof expected === 'function') {
-      try {
-        expected()
-        return isValid()
-      } catch (e) {
-        const error = e as EntityValidationError
-        return assertContainsErrorsMessages(error.error, received)
-      }
-    } else {
-      const { validator, data } = expected
-      const validated = validator.validate(data)
-
-      if (validated) {
-        return isValid()
-      }
-      return assertContainsErrorMessages(validator.errors, received)
-    }
-  }
-})
-
-function isValid() {
-  return { pass: true, message: () => '' }
-}
-
-function assertContainsErrorMessages(
+function assertContainsErrorMessage(
   expected: FieldErrors,
   received: FieldErrors
 ) {
@@ -46,4 +20,30 @@ function assertContainsErrorMessages(
       Current: ${JSON.stringify(expected)}
     `
   }
+}
+
+expect.extend({
+  toContainErrorMessages(expected: Expected, received: FieldErrors) {
+    if (typeof expected === 'function') {
+      try {
+        expected()
+        return isValid()
+      } catch (e) {
+        const error = e as EntityValidationError
+        return assertContainsErrorMessage(error.errors, received)
+      }
+    } else {
+      const { validator, data } = expected
+      const validated = validator.validate(data)
+
+      if (validated) {
+        return isValid()
+      }
+      return assertContainsErrorMessage(validator.errors, received)
+    }
+  }
+})
+
+function isValid() {
+  return { pass: true, message: () => '' }
 }

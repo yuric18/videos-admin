@@ -130,10 +130,60 @@ describe('Category Unit Test', () => {
 
 describe('Category Validator', () => {
   describe('create command', () => {
-    test('shoud validate according to rules', () => {
-      Category.create({
-        name: null
-      })
+    test.each([
+      {
+        input: { name: null },
+        errors: {
+          name: [
+            'name should not be empty',
+            'name must be a string',
+            'name must be shorter than or equal to 255 characters'
+          ]
+        }
+      },
+      {
+        input: { name: 255 as any },
+        errors: {
+          name: [
+            'name must be a string',
+            'name must be shorter than or equal to 255 characters'
+          ]
+        }
+      },
+      {
+        input: { name: 'a'.repeat(256) },
+        errors: {
+          name: [
+            'name must be shorter than or equal to 255 characters'
+          ]
+        }
+      },
+      {
+        input: { name: 'any', description: 255 as any },
+        errors: {
+          description: [
+            'description must be a string'
+          ]
+        }
+      },
+      {
+        input: { name: 'any', description: 255 as any },
+        errors: {
+          description: [
+            'description must be a string'
+          ]
+        }
+      },
+      {
+        input: { name: 'any', description: 'any', is_active: 5 as any },
+        errors: {
+          is_active: [
+            'is_active must be a boolean value'
+          ]
+        }
+      }
+    ])('shoud validate according to rules', ({ input, errors }) => {
+      expect(() => Category.create(input)).toContainErrorMessages(errors)
     })
   })
 })

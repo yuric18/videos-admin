@@ -22,7 +22,10 @@ const config: Config = {
   coverageReporters: ["json", "lcov", "text-summary", "clover", "cobertura"],
   transform: {
     '^.+\\.(t|j)s?$': '@swc/jest'
-  }
+  },
+  setupFilesAfterEnv: [
+    './tests/helpers/expect-helpers.ts'
+  ]
 };
 
 export default config;
