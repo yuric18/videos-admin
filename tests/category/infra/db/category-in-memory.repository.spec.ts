@@ -7,7 +7,7 @@ describe('Category In-Memory Repository Tests', () => {
   beforeEach(() => (repository = new CategoryInMemoryRepository()))
 
   test('should filter no items when filter object is null', async () => {
-    const items = [Category.create({ name: 'test' })]
+    const items = [Category.fake().aCategory().build()]
     const filterSpy = jest.spyOn(items, 'filter' as any)
 
     const filteredItems = await repository['applyFilter'](items, null)
@@ -17,9 +17,9 @@ describe('Category In-Memory Repository Tests', () => {
 
   test('should filter items using filter parameter', async () => {
     const items = [
-      new Category({ name: 'test' }),
-      new Category({ name: 'TEST' }),
-      new Category({ name: 'fake' })
+      Category.fake().aCategory().withName('test').build(),
+      Category.fake().aCategory().withName('TEST').build(),
+      Category.fake().aCategory().withName('fake').build()
     ]
     const filterSpy = jest.spyOn(items, 'filter' as any)
 
@@ -32,9 +32,9 @@ describe('Category In-Memory Repository Tests', () => {
     const createdAt = new Date()
 
     const items = [
-      new Category({ name: 'test', created_at: createdAt }),
-      new Category({ name: 'TEST', created_at: new Date(createdAt.getTime() + 100 )}),
-      new Category({ name: 'fake', created_at: new Date(createdAt.getTime() + 200 )}),
+      Category.fake().aCategory().withCreatedAt(createdAt).build(),
+      Category.fake().aCategory().withCreatedAt(new Date(createdAt.getTime() + 100 )).build(),
+      Category.fake().aCategory().withCreatedAt(new Date(createdAt.getTime() + 200 )).build()
     ]
 
     const sortedItems = repository['applySort'](items, null, null)
