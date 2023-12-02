@@ -1,4 +1,3 @@
-import { Sequelize } from 'sequelize-typescript'
 import { CategoryModel } from '../../../../../src/category/infra/db/sequelize/category.model'
 import { CategorySequelizeRepository } from '../../../../../src/category/infra/db/sequelize/category-sequelize.repository'
 import { Category } from '../../../../../src/category/domain/category.entity'
@@ -6,19 +5,13 @@ import { Uuid } from '../../../../../src/shared/domain/value-objects/uuid.vo'
 import { NotFoundError } from '../../../../../src/shared/domain/errors/not-found.error'
 import { CategoryModelMapper } from '../../../../../src/category/infra/db/sequelize/category-model.mapper'
 import { CategorySearchParams, CategorySearchResult } from '../../../../../src/category/domain/category.repository'
+import { setupSequelize } from '../../../../helpers/db-helpers'
 
 describe('CategorySequelizeRepository integration test', () => {
-  let sequelize
   let repository: CategorySequelizeRepository
+  setupSequelize({ models: [CategoryModel] })
 
   beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: 'sqlite',
-      storage: ':memory:',
-      models: [CategoryModel],
-      logging: false
-    })
-    await sequelize.sync({ force: true })
     repository = new CategorySequelizeRepository(CategoryModel)
   })
 
