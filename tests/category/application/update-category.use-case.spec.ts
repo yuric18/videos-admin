@@ -4,7 +4,7 @@ import { CategoryInMemoryRepository } from '../../../src/category/infra/db/in-me
 import { NotFoundError } from '../../../src/shared/domain/errors/not-found.error'
 import { InvalidUuidError, Uuid } from '../../../src/shared/domain/value-objects/uuid.vo'
 
-describe('CreateCategoryUseCase Unit test', () => {
+describe('UpdateCategoryUseCase test', () => {
 
   const sut: {
     repo?: CategoryInMemoryRepository,

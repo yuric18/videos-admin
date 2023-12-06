@@ -2,7 +2,7 @@ import { CreateCategoryUseCase } from '../../../src/category/application/create-
 import { CategoryInMemoryRepository } from '../../../src/category/infra/db/in-memory/category-in-memory.repository'
 import { Uuid } from '../../../src/shared/domain/value-objects/uuid.vo'
 
-describe('CreateCategoryUseCase Unit test', () => {
+describe('CreateCategoryUseCase test', () => {
 
   const mock: {
     repo?: CategoryInMemoryRepository,
