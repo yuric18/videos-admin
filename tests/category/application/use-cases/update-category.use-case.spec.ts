@@ -1,8 +1,8 @@
 import { UpdateCategoryUseCase } from '../../../src/category/application/update-category.use-case'
-import { Category } from '../../../src/category/domain/category.entity'
-import { CategoryInMemoryRepository } from '../../../src/category/infra/db/in-memory/category-in-memory.repository'
-import { NotFoundError } from '../../../src/shared/domain/errors/not-found.error'
-import { InvalidUuidError, Uuid } from '../../../src/shared/domain/value-objects/uuid.vo'
+import { Category } from '../../../../src/category/domain/category.entity'
+import { CategoryInMemoryRepository } from '../../../../src/category/infra/db/in-memory/category-in-memory.repository'
+import { NotFoundError } from '../../../../src/shared/domain/errors/not-found.error'
+import { InvalidUuidError, Uuid } from '../../../../src/shared/domain/value-objects/uuid.vo'
 
 describe('UpdateCategoryUseCase test', () => {
 
